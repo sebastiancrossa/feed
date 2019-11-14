@@ -1,10 +1,19 @@
+// Libraries
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+// Component Imports
+import Feed from "./pages/Feed";
 
 function App() {
   return (
-    <div>
-      <h1>Feed</h1>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Feed} />
+
+        <Route component={() => <h1>404</h1>} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
