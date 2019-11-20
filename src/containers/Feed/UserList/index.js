@@ -8,9 +8,9 @@ import { List } from "./userList.style";
 export const UserList = () => {
   return (
     <List>
-      <UserCard followers={3} />
-      <UserCard followers={2} />
-      <UserCard followers={6} />
+      <UserCard name="Sebastian" followers={3} />
+      <UserCard name="Daniel" followers={2} />
+      <UserCard name="Jonathan" followers={6} />
       <UserCard newUser />
     </List>
   );
