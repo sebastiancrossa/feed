@@ -17,3 +17,17 @@ export const Card = styled.div`
   -moz-box-shadow: 0px 0px 96px 9px rgba(175, 180, 209, 0.59);
   box-shadow: 0px 0px 96px 9px rgba(175, 180, 209, 0.59);
 `;
+
+export const Follower = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+
+  transition: 0.3s;
+
+  &:hover {
+    background-color: var(--color-gray-light);
+  }
+`;

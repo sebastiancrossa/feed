@@ -3,7 +3,7 @@ import React from "react";
 import { FaUserCircle, FaPlus } from "react-icons/fa";
 
 // Styles
-import { Card } from "./profileInfo.style";
+import { Card, Follower } from "./profileInfo.style";
 
 export const ProfileInfo = () => {
   return (
@@ -15,15 +15,9 @@ export const ProfileInfo = () => {
       </div>
 
       <div>
-        <p style={{ textAlign: "left", marginBottom: "0.8rem" }}>Followers:</p>
+        <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Followers:</p>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "0.8rem"
-          }}
-        >
+        <Follower>
           <FaUserCircle
             size={30}
             style={{
@@ -32,14 +26,9 @@ export const ProfileInfo = () => {
             }}
           />
           <p>Jonathan</p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "0.8rem"
-          }}
-        >
+        </Follower>
+
+        <Follower>
           <FaUserCircle
             size={30}
             style={{
@@ -48,14 +37,8 @@ export const ProfileInfo = () => {
             }}
           />
           <p>Jonathan</p>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "0.8rem"
-          }}
-        >
+        </Follower>
+        <Follower>
           <FaUserCircle
             size={30}
             style={{
@@ -64,7 +47,7 @@ export const ProfileInfo = () => {
             }}
           />
           <p>Jonathan</p>
-        </div>
+        </Follower>
       </div>
     </Card>
   );
