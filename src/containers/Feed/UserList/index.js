@@ -10,7 +10,7 @@ export const UserList = () => {
     <List>
       <UserCard followers={3} />
       <UserCard followers={2} />
-      <UserCard followers={2} />
+      <UserCard followers={6} />
     </List>
   );
 };

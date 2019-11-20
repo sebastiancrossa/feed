@@ -8,13 +8,10 @@ import { Card, SelectButton } from "./userCard.style";
 export const UserCard = ({ followers }) => {
   return (
     <Card>
-      <FaUserCircle
-        size={70}
-        style={{ color: "var(--color-gray)", marginBottom: "0.5rem" }}
-      />
-      <div style={{ marginBottom: "1.5rem" }}>
+      <FaUserCircle size={50} style={{ color: "var(--color-gray)" }} />
+      <div style={{ marginBottom: "0.5rem" }}>
         <p style={{ fontSize: "1.2rem" }}>{followers}</p>
-        <p style={{ textTransform: "uppercase", fontSize: "0.8rem" }}>
+        <p style={{ textTransform: "uppercase", fontSize: "0.7rem" }}>
           Followers
         </p>
       </div>

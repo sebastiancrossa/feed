@@ -5,13 +5,13 @@ export const Card = styled.div`
   background-color: var(--color-white);
 
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: 1rem;
   margin-right: 2rem;
 
   text-align: center;
 
-  width: 15rem;
-  height: 16rem;
+  width: 11rem;
+  height: 12rem;
 
   -webkit-box-shadow: 0px 0px 96px 9px rgba(175,180,209,0.59);
 -moz-box-shadow: 0px 0px 96px 9px rgba(175,180,209,0.59);
