@@ -19,6 +19,21 @@ box-shadow: 0px 0px 96px 9px rgba(175,180,209,0.59);
 Copy Text
 `;
 
+export const NewUserCard = styled.div`
+  width: 11rem;
+  height: 12rem;
+
+  position: relative;
+
+  cursor: pointer;
+
+  padding: 1rem;
+  text-align: center;
+
+  border: 3.5px dashed var(--color-gray);
+  border-radius: 10px;
+`;
+
 export const SelectButton = styled.button`
   width: 100%;
   padding: 1rem;

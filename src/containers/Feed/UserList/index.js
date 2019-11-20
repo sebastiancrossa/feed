@@ -11,6 +11,7 @@ export const UserList = () => {
       <UserCard followers={3} />
       <UserCard followers={2} />
       <UserCard followers={6} />
+      <UserCard newUser />
     </List>
   );
 };
