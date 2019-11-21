@@ -6,6 +6,7 @@ import { Grid } from "./feed.style";
 import { UserList } from "../containers/Feed/UserList";
 import { ProfileInfo } from "../containers/Feed/ProfileInfo";
 import { UserPostInput } from "../containers/Feed/Posts/UserPostInput";
+import { PostCard } from "../containers/Feed/Posts/PostCard";
 
 const Feed = () => {
   return (
@@ -18,6 +19,10 @@ const Feed = () => {
         </div>
         <div style={{ marginRight: "2rem" }}>
           <UserPostInput />
+          <PostCard />
+          <PostCard />
+          <PostCard />
+          <PostCard />
         </div>
       </Grid>
     </div>
