@@ -1,6 +1,6 @@
 // Libraries
 import React from "react";
-import { FaUserCircle, FaPlus } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 // Styles
 import { Card, Follower } from "./profileInfo.style";

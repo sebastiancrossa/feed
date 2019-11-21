@@ -15,6 +15,7 @@ export default createGlobalStyle`
         box-sizing: border-box;
 
         --color-main: ${props => props.theme.colors.main};
+        --color-secondary: ${({ theme }) => theme.colors.secondary}
         --color-white: ${props => props.theme.colors.whiteColor};
         --color-gray: ${props => props.theme.colors.grayColor};
         --color-gray-light: ${({ theme }) => theme.colors.lightGrayColor};

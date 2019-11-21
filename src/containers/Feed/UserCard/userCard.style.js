@@ -5,7 +5,7 @@ export const Card = styled.div`
   background-color: var(--color-white);
 
   border-radius: 10px;
-  padding: 1.2rem;
+  padding: 1.3rem;
   margin-right: 2rem;
 
   text-align: center;
@@ -42,6 +42,12 @@ export const Grid = styled.div`
   align-items: center;
 `;
 
+export const ButtonGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: 0.5rem;
+`;
+
 export const SelectButton = styled.button`
   width: 100%;
   padding: 1rem;
@@ -61,4 +67,8 @@ export const SelectButton = styled.button`
 
   color: white;
   background-color: var(--color-main);
+`;
+
+export const FollowButton = styled(SelectButton)`
+  background-color: var(--color-secondary);
 `;
