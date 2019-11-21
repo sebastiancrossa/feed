@@ -3,7 +3,14 @@ import React from "react";
 import { FaUserCircle, FaPlus } from "react-icons/fa";
 
 // Styles
-import { Card, NewUserCard, Grid, SelectButton } from "./userCard.style";
+import {
+  Card,
+  NewUserCard,
+  Grid,
+  ButtonGrid,
+  SelectButton,
+  FollowButton
+} from "./userCard.style";
 
 export const UserCard = ({ name, followers, newUser }) => {
   if (newUser) {
@@ -41,7 +48,11 @@ export const UserCard = ({ name, followers, newUser }) => {
             <p style={{ fontSize: "0.9rem" }}>{followers} followers</p>
           </div>
         </Grid>
-        <SelectButton>SELECT</SelectButton>
+
+        <ButtonGrid>
+          <SelectButton>LOGIN</SelectButton>
+          <FollowButton>FOLLOW</FollowButton>
+        </ButtonGrid>
       </Card>
     );
   }

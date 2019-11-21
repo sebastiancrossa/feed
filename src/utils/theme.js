@@ -1,6 +1,7 @@
 const theme = {
   colors: {
     main: "#6F01FF",
+    secondary: "#5AC2F5",
     whiteColor: "#F9FCFF",
     grayColor: "#AFB4D1",
     lightGrayColor: "#E8EAF8",
