@@ -7,6 +7,7 @@ export const Card = styled.div`
   display: flex;
 
   padding: 1.3rem;
+  margin-bottom: 1.5rem;
 
   -webkit-box-shadow: 0px 0px 96px 9px rgba(175, 180, 209, 0.59);
   -moz-box-shadow: 0px 0px 96px 9px rgba(175, 180, 209, 0.59);
