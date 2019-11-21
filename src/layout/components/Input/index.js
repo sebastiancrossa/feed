@@ -1,10 +1,11 @@
 // Libraries
 import React from "react";
 
-export const Input = () => {
-  return (
-    <div>
-      <p>This is the input</p>
-    </div>
-  );
+// Style
+import { CustomInput } from "./input.style";
+
+const Input = ({ children, ...props }) => {
+  return <CustomInput {...props}>{children}</CustomInput>;
 };
+
+export default Input;

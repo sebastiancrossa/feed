@@ -2,13 +2,14 @@
 import React from "react";
 
 // Styles
-import { Card } from "./userPostInput.style";
+import { Card, PostButton } from "./userPostInput.style";
+import CustomInput from "../../../../layout/components/Input";
 
 export const UserPostInput = () => {
   return (
     <Card>
-      <p>What's on your mind?</p>
-      <input type="text" />
+      <CustomInput type="text" placeholder="What's on your mind?" />
+      <PostButton>POST</PostButton>
     </Card>
   );
 };
