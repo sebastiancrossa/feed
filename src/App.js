@@ -2,8 +2,9 @@
 import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-// Component Imports
+// Page Imports
 import Feed from "./pages/Feed";
+import Login from "./pages/Login";
 
 export const AppContext = createContext(null);
 
@@ -53,6 +54,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Feed} />
+          <Route exact path="/login" component={Login} />
 
           <Route component={() => <h1>404</h1>} />
         </Switch>
