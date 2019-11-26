@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState, useEffect, useContext } from "react";
-import { AppContext } from "../../../App";
+import App, { AppContext } from "../../../App";
 import { FaUserCircle, FaPlus } from "react-icons/fa";
 
 // Styles
@@ -36,6 +36,31 @@ export const UserCard = ({ name, friends, newUser }) => {
         followers: []
       }
     ]);
+  };
+
+  const followUser = () => {
+    if (AppState) {
+      console.log("called");
+      AppState.userList.map(user => {
+        if (user.name === name) {
+          if (user.friends === undefined) {
+            user.friends = [AppState.selectedUser];
+          } else {
+            user.friends.push(AppState.selectedUser);
+            console.log("added");
+          }
+
+          /*
+          if (AppState.selectedUser.friends === undefined) {
+            AppState.friends = [user.name];
+          } else {
+            AppState.friends.push(AppState.selectedUser);
+            console.log("added");
+          }
+          */
+        }
+      });
+    }
   };
 
   if (newUser) {
@@ -98,7 +123,7 @@ export const UserCard = ({ name, friends, newUser }) => {
               <span>FRIENDS</span>
             </FollowingButton>
           ) : (
-            <FollowButton>ADD</FollowButton>
+            <FollowButton onClick={() => followUser()}>ADD</FollowButton>
           )}
         </ButtonGrid>
       </Card>
