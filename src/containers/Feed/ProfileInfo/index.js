@@ -34,14 +34,21 @@ export const ProfileInfo = () => {
         <p style={{ fontSize: "1.2rem", fontWeight: "600" }}>
           {data !== undefined ? data[0].name : "Loading..."}
         </p>
-        <p>{data !== undefined ? data[0].followers.length : "..."} followers</p>
+        <p>
+          {data !== undefined ? data[0].friends.length : "..."}{" "}
+          {data !== undefined
+            ? data[0].friends.length === 1
+              ? "friend"
+              : "friends"
+            : "..."}
+        </p>
       </div>
 
       <div>
-        <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Followers:</p>
+        <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Friends:</p>
 
         {data !== undefined ? (
-          data[0].followers.map(follower => (
+          data[0].friends.map(friend => (
             <Follower>
               <FaUserCircle
                 size={30}
@@ -50,7 +57,7 @@ export const ProfileInfo = () => {
                   marginRight: "1rem"
                 }}
               />
-              <p>{follower}</p>
+              <p>{friend}</p>
             </Follower>
           ))
         ) : (

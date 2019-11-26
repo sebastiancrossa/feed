@@ -11,28 +11,48 @@ function App() {
   const users = [
     {
       name: "Sebastian",
-      followers: ["Daniel", "Jonathan"]
+      friends: ["Daniel"]
     },
     {
       name: "Daniel",
-      followers: ["Jonathan"]
+      friends: ["Sebastian", "Jonathan"]
     },
     {
       name: "Jonathan",
-      followers: ["Sebastian"]
+      friends: ["Daniel"]
+    }
+  ];
+
+  const posts = [
+    {
+      name: "Sebastian",
+      text: "Hello guys this is a wonderful day"
+    },
+    {
+      name: "Jonathan",
+      text: "YA quiero acabar este proyecto"
     }
   ];
 
   const [userList, setUserList] = useState(null);
+  const [postList, setPostList] = useState(null);
   const [selectedUser, setSelectedUser] = useState("Sebastian");
 
   useEffect(() => {
     setUserList(users);
+    setPostList(posts);
   }, []);
 
   return (
     <AppContext.Provider
-      value={{ selectedUser, setSelectedUser, userList, setUserList }}
+      value={{
+        selectedUser,
+        setSelectedUser,
+        userList,
+        setUserList,
+        postList,
+        setPostList
+      }}
     >
       <BrowserRouter>
         <Switch>

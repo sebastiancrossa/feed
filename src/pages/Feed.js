@@ -1,5 +1,6 @@
 // Libraries
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../App";
 
 // Styles
 import { Grid } from "./feed.style";
@@ -9,6 +10,8 @@ import { UserPostInput } from "../containers/Feed/Posts/UserPostInput";
 import { PostCard } from "../containers/Feed/Posts/PostCard";
 
 const Feed = () => {
+  const AppState = useContext(AppContext);
+
   return (
     <div>
       <UserList />

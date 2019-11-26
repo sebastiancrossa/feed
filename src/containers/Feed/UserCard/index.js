@@ -1,5 +1,5 @@
 // Libraries
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../../App";
 import { FaUserCircle, FaPlus } from "react-icons/fa";
 
@@ -10,11 +10,23 @@ import {
   Grid,
   ButtonGrid,
   SelectButton,
-  FollowButton
+  FollowButton,
+  FollowingButton
 } from "./userCard.style";
 
-export const UserCard = ({ name, followers, newUser }) => {
+export const UserCard = ({ name, friends, newUser }) => {
+  const [followedByUser, setFollowedByUser] = useState();
   const AppState = useContext(AppContext);
+
+  console.log(name + ": " + friends);
+
+  useEffect(() => {
+    if (friends !== undefined) {
+      friends.map(follower => {
+        if (follower === AppState.selectedUser) setFollowedByUser(true);
+      });
+    }
+  }, [AppState]);
 
   if (newUser) {
     return (
@@ -49,7 +61,7 @@ export const UserCard = ({ name, followers, newUser }) => {
               {name}
             </p>
             <p style={{ fontSize: "0.9rem" }}>
-              {followers} {followers === 1 ? "follower" : "followers"}
+              {friends.length} {friends.length === 1 ? "friend" : "friends"}
             </p>
           </div>
         </Grid>
@@ -65,7 +77,14 @@ export const UserCard = ({ name, followers, newUser }) => {
           >
             LOGIN
           </SelectButton>
-          <FollowButton>FOLLOW</FollowButton>
+
+          {followedByUser ? (
+            <FollowingButton>
+              <span>FRIEND</span>
+            </FollowingButton>
+          ) : (
+            <FollowButton>ADD</FollowButton>
+          )}
         </ButtonGrid>
       </Card>
     );
