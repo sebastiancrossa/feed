@@ -1,8 +1,9 @@
 // Libraries
 import React from "react";
+import { Link } from "react-router-dom";
 
 // Component Imports
-import { InputSection } from "../containers/Login/InputSection";
+import InputSection from "../containers/Login/InputSection";
 
 const Login = () => {
   return (

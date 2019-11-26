@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../App";
 
 // Styles
+import { Navbar } from "../layout/components/Navbar";
 import { Grid } from "./feed.style";
 import { UserList } from "../containers/Feed/UserList";
 import { ProfileInfo } from "../containers/Feed/ProfileInfo";
@@ -25,7 +26,7 @@ const Feed = () => {
 
   return (
     <div>
-      <UserList />
+      <Navbar />
 
       <Grid>
         <div>

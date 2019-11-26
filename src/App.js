@@ -1,6 +1,7 @@
 // Libraries
 import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ProtectedRoute } from "./layout/ProtectedRoute";
 
 // Page Imports
 import Feed from "./pages/Feed";
@@ -12,14 +13,17 @@ function App() {
   const users = [
     {
       name: "Sebastian",
+      password: "123",
       friends: ["Daniel"]
     },
     {
       name: "Daniel",
+      password: "jericho",
       friends: ["Sebastian", "Jonathan"]
     },
     {
       name: "Jonathan",
+      password: "google",
       friends: ["Daniel"]
     }
   ];
@@ -33,7 +37,7 @@ function App() {
 
   const [userList, setUserList] = useState(null);
   const [postList, setPostList] = useState(null);
-  const [selectedUser, setSelectedUser] = useState("Sebastian");
+  const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
     setUserList(users);
@@ -53,7 +57,7 @@ function App() {
     >
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Feed} />
+          <ProtectedRoute exact path="/" component={Feed} />
           <Route exact path="/login" component={Login} />
 
           <Route component={() => <h1>404</h1>} />
