@@ -25,7 +25,7 @@ export const ProfileInfo = () => {
 
   useEffect(() => {
     fetchData();
-  }, [AppState.userList]);
+  }, [AppState]);
 
   return (
     <Card>

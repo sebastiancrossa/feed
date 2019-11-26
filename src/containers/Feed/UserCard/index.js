@@ -1,5 +1,6 @@
 // Libraries
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../../App";
 import { FaUserCircle, FaPlus } from "react-icons/fa";
 
 // Styles
@@ -13,6 +14,8 @@ import {
 } from "./userCard.style";
 
 export const UserCard = ({ name, followers, newUser }) => {
+  const AppState = useContext(AppContext);
+
   if (newUser) {
     return (
       <NewUserCard>
@@ -45,12 +48,23 @@ export const UserCard = ({ name, followers, newUser }) => {
             >
               {name}
             </p>
-            <p style={{ fontSize: "0.9rem" }}>{followers} followers</p>
+            <p style={{ fontSize: "0.9rem" }}>
+              {followers} {followers === 1 ? "follower" : "followers"}
+            </p>
           </div>
         </Grid>
 
         <ButtonGrid>
-          <SelectButton>LOGIN</SelectButton>
+          <SelectButton
+            onClick={async () => {
+              if (AppState !== undefined) {
+                await AppState.setSelectedUser(name);
+                console.log(AppState.selectedUser);
+              }
+            }}
+          >
+            LOGIN
+          </SelectButton>
           <FollowButton>FOLLOW</FollowButton>
         </ButtonGrid>
       </Card>
