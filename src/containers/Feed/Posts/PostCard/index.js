@@ -13,6 +13,7 @@ export const PostCard = () => {
           <FaUserCircle size={40} style={{ color: "var(--color-gray)" }} />
         </div>
         <div>
+          <p style={{ fontWeight: "700" }}>Sebastian Crossa</p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
             enim animi ipsa sapiente alias inventore recusandae nostrum
