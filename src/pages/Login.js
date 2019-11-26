@@ -7,14 +7,18 @@ import LoginInputSection from "../containers/Login/InputSection";
 import CreateInputSeccion from "../containers/Login/CreateAccountInputSection";
 
 // Styles
-import { Grid } from "./login.style";
+import { Title, Subtitle, Grid } from "./login.style";
 
 const Login = () => {
   return (
-    <Grid>
-      <LoginInputSection />
-      <CreateInputSeccion />
-    </Grid>
+    <>
+      <Title>Feed</Title>
+      <Subtitle>The social network of all social networks</Subtitle>
+      <Grid>
+        <LoginInputSection />
+        <CreateInputSeccion />
+      </Grid>
+    </>
   );
 };
 

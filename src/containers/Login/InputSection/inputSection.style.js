@@ -18,14 +18,16 @@ export const Subtitle = styled.p`
   text-transform: uppercase;
   font-size: 0.9rem;
   font-weight: 700;
+
+  margin-bottom: 0.5rem;
 `;
 
 export const InputContainer = styled.div`
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.3rem;
 `;
 
 export const SignIn = styled.button`
-  display: block;
+  display: inline-block;
 
   padding: 1rem 2.5rem;
   border: none;
@@ -36,5 +38,8 @@ export const SignIn = styled.button`
   background-color: var(--color-main-dark);
   color: white;
 
-  width: 11rem;
+  height: 3.4rem;
+  width: 100%;
+
+  cursor: pointer;
 `;

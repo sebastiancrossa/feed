@@ -3,6 +3,10 @@ import React, { useContext } from "react";
 import { AppContext } from "../../../App";
 import useInputState from "../../../hooks/useInputState";
 import { withRouter } from "react-router";
+import { MdPerson, MdLock } from "react-icons/md";
+
+// Component imports
+import { IconInput } from "../../../layout/components/IconInput";
 
 // Styles
 import {
@@ -44,12 +48,25 @@ const InputSection = ({ history }) => {
 
       <InputContainer>
         <Subtitle>Username</Subtitle>
-        <input type="text" value={username} onChange={updateUsername} />
+        <IconInput
+          icon={MdPerson}
+          type="text"
+          value={username}
+          onChange={updateUsername}
+          placeholder="Username..."
+        />
       </InputContainer>
 
       <InputContainer>
         <Subtitle>Password</Subtitle>
-        <input type="password" value={password} onChange={updatePassword} />
+        <IconInput
+          icon={MdLock}
+          type="password"
+          value={password}
+          onChange={updatePassword}
+          placeholder="Password..."
+          withBottomMargin
+        />
       </InputContainer>
 
       <SignIn
