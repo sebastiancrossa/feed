@@ -14,13 +14,14 @@ export default createGlobalStyle`
     html {
         box-sizing: border-box;
 
-        --color-main: ${props => props.theme.colors.main};
+        --color-main: ${({ theme }) => theme.colors.main};
+        --color-main-dark: ${({ theme }) => theme.colors.mainDark};
         --color-secondary: ${({ theme }) => theme.colors.secondary};
-        --color-white: ${props => props.theme.colors.whiteColor};
-        --color-gray: ${props => props.theme.colors.grayColor};
+        --color-white: ${({ theme }) => theme.colors.whiteColor};
+        --color-gray: ${({ theme }) => theme.colors.grayColor};
         --color-gray-light: ${({ theme }) => theme.colors.lightGrayColor};
-        --color-text: ${props => props.theme.colors.textColor};
-        --color-shadow: ${props => props.theme.colors.shadow};
+        --color-text: ${({ theme }) => theme.colors.textColor};
+        --color-shadow: ${({ theme }) => theme.colors.shadow};
     
     }
 

@@ -30,9 +30,7 @@ export const UserList = () => {
   return (
     <List>
       {data !== undefined ? (
-        data.map(user => (
-          <UserCard name={user.name} followers={user.followers.length} />
-        ))
+        data.map(user => <UserCard name={user.name} friends={user.friends} />)
       ) : (
         <h1>Loading...</h1>
       )}

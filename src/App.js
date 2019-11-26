@@ -1,9 +1,11 @@
 // Libraries
 import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ProtectedRoute } from "./layout/ProtectedRoute";
 
-// Component Imports
+// Page Imports
 import Feed from "./pages/Feed";
+import Login from "./pages/Login";
 
 export const AppContext = createContext(null);
 
@@ -11,32 +13,52 @@ function App() {
   const users = [
     {
       name: "Sebastian",
-      followers: ["Daniel", "Jonathan"]
+      password: "123",
+      friends: ["Daniel"]
     },
     {
       name: "Daniel",
-      followers: ["Jonathan"]
+      password: "jericho",
+      friends: ["Sebastian", "Jonathan"]
     },
     {
       name: "Jonathan",
-      followers: ["Sebastian"]
+      password: "google",
+      friends: ["Daniel"]
+    }
+  ];
+
+  const posts = [
+    {
+      name: "Sebastian",
+      text: "Ya casi acaba el semestre :)"
     }
   ];
 
   const [userList, setUserList] = useState(null);
-  const [selectedUser, setSelectedUser] = useState("Sebastian");
+  const [postList, setPostList] = useState(null);
+  const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
     setUserList(users);
+    setPostList(posts);
   }, []);
 
   return (
     <AppContext.Provider
-      value={{ selectedUser, setSelectedUser, userList, setUserList }}
+      value={{
+        selectedUser,
+        setSelectedUser,
+        userList,
+        setUserList,
+        postList,
+        setPostList
+      }}
     >
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Feed} />
+          <ProtectedRoute exact path="/" component={Feed} />
+          <Route exact path="/login" component={Login} />
 
           <Route component={() => <h1>404</h1>} />
         </Switch>

@@ -72,3 +72,23 @@ export const SelectButton = styled.button`
 export const FollowButton = styled(SelectButton)`
   background-color: var(--color-secondary);
 `;
+
+export const FollowingButton = styled(FollowButton)`
+  background: none;
+
+  border: 3px solid var(--color-secondary);
+  color: var(--color-secondary);
+
+  &:hover span {
+    display: none;
+  }
+
+  &:hover {
+    border: 3px solid red;
+    color: red;
+  }
+
+  &:hover:before {
+    content: "UNFRIEND";
+  }
+`;

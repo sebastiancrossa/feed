@@ -20,7 +20,6 @@ export const ProfileInfo = () => {
     }
 
     setData(filteredUserData);
-    console.log(filteredUserData);
   };
 
   useEffect(() => {
@@ -34,25 +33,42 @@ export const ProfileInfo = () => {
         <p style={{ fontSize: "1.2rem", fontWeight: "600" }}>
           {data !== undefined ? data[0].name : "Loading..."}
         </p>
-        <p>{data !== undefined ? data[0].followers.length : "..."} followers</p>
+        <p>
+          {data !== undefined
+            ? data[0].friends !== undefined
+              ? data[0].friends.length
+              : "0"
+            : "..."}{" "}
+          {data !== undefined
+            ? data[0].friends !== undefined
+              ? data[0].friends === 1
+                ? "friend"
+                : "friends"
+              : "friends"
+            : "..."}
+        </p>
       </div>
 
       <div>
-        <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Followers:</p>
+        <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Friends:</p>
 
         {data !== undefined ? (
-          data[0].followers.map(follower => (
-            <Follower>
-              <FaUserCircle
-                size={30}
-                style={{
-                  color: "var(--color-gray)",
-                  marginRight: "1rem"
-                }}
-              />
-              <p>{follower}</p>
-            </Follower>
-          ))
+          data[0].friends !== undefined ? (
+            data[0].friends.map(friend => (
+              <Follower>
+                <FaUserCircle
+                  size={30}
+                  style={{
+                    color: "var(--color-gray)",
+                    marginRight: "1rem"
+                  }}
+                />
+                <p>{friend}</p>
+              </Follower>
+            ))
+          ) : (
+            <h1>No friends</h1>
+          )
         ) : (
           <h1>Loading...</h1>
         )}

@@ -1,6 +1,6 @@
 // Libraries
-import React, { useContext } from "react";
-import { AppContext } from "../../../App";
+import React, { useState, useEffect, useContext } from "react";
+import App, { AppContext } from "../../../App";
 import { FaUserCircle, FaPlus } from "react-icons/fa";
 
 // Styles
@@ -10,15 +10,62 @@ import {
   Grid,
   ButtonGrid,
   SelectButton,
-  FollowButton
+  FollowButton,
+  FollowingButton
 } from "./userCard.style";
 
-export const UserCard = ({ name, followers, newUser }) => {
+export const UserCard = ({ name, friends, newUser }) => {
+  const [followedByUser, setFollowedByUser] = useState();
   const AppState = useContext(AppContext);
+
+  useEffect(() => {
+    if (friends !== undefined) {
+      friends.map(follower => {
+        if (follower === AppState.selectedUser) setFollowedByUser(true);
+      });
+    }
+  }, [AppState]);
+
+  const createUser = () => {
+    const name = prompt("Name: ");
+
+    AppState.setUserList([
+      ...AppState.userList,
+      {
+        name: name,
+        followers: []
+      }
+    ]);
+  };
+
+  const followUser = () => {
+    if (AppState) {
+      console.log("called");
+      AppState.userList.map(user => {
+        if (user.name === name) {
+          if (user.friends === undefined) {
+            user.friends = [AppState.selectedUser];
+          } else {
+            user.friends.push(AppState.selectedUser);
+            console.log("added");
+          }
+
+          /*
+          if (AppState.selectedUser.friends === undefined) {
+            AppState.friends = [user.name];
+          } else {
+            AppState.friends.push(AppState.selectedUser);
+            console.log("added");
+          }
+          */
+        }
+      });
+    }
+  };
 
   if (newUser) {
     return (
-      <NewUserCard>
+      <NewUserCard onClick={() => createUser()}>
         <FaPlus
           size={30}
           style={{
@@ -49,7 +96,12 @@ export const UserCard = ({ name, followers, newUser }) => {
               {name}
             </p>
             <p style={{ fontSize: "0.9rem" }}>
-              {followers} {followers === 1 ? "follower" : "followers"}
+              {friends !== undefined ? friends.length : "0"}{" "}
+              {friends !== undefined
+                ? friends.length <= 1
+                  ? "friend"
+                  : "friends"
+                : "friends"}
             </p>
           </div>
         </Grid>
@@ -65,7 +117,14 @@ export const UserCard = ({ name, followers, newUser }) => {
           >
             LOGIN
           </SelectButton>
-          <FollowButton>FOLLOW</FollowButton>
+
+          {followedByUser ? (
+            <FollowingButton>
+              <span>FRIENDS</span>
+            </FollowingButton>
+          ) : (
+            <FollowButton onClick={() => followUser()}>ADD</FollowButton>
+          )}
         </ButtonGrid>
       </Card>
     );

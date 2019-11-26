@@ -5,7 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 // Styles
 import { Card, Grid } from "./postCard.style";
 
-export const PostCard = () => {
+export const PostCard = ({ user, text }) => {
   return (
     <Card>
       <Grid>
@@ -13,13 +13,8 @@ export const PostCard = () => {
           <FaUserCircle size={40} style={{ color: "var(--color-gray)" }} />
         </div>
         <div>
-          <p style={{ fontWeight: "700" }}>Sebastian Crossa</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-            enim animi ipsa sapiente alias inventore recusandae nostrum
-            perferendis minima deleniti id repellat quisquam magnam, iure ullam
-            dolorem harum quidem aspernatur?
-          </p>
+          <p style={{ fontWeight: "700" }}>{user}</p>
+          <p>{text}</p>
         </div>
       </Grid>
     </Card>
