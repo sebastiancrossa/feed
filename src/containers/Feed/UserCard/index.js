@@ -18,8 +18,6 @@ export const UserCard = ({ name, friends, newUser }) => {
   const [followedByUser, setFollowedByUser] = useState();
   const AppState = useContext(AppContext);
 
-  console.log(name + ": " + friends);
-
   useEffect(() => {
     if (friends !== undefined) {
       friends.map(follower => {
@@ -28,9 +26,21 @@ export const UserCard = ({ name, friends, newUser }) => {
     }
   }, [AppState]);
 
+  const createUser = () => {
+    const name = prompt("Name: ");
+
+    AppState.setUserList([
+      ...AppState.userList,
+      {
+        name: name,
+        followers: []
+      }
+    ]);
+  };
+
   if (newUser) {
     return (
-      <NewUserCard>
+      <NewUserCard onClick={() => createUser()}>
         <FaPlus
           size={30}
           style={{
@@ -61,7 +71,12 @@ export const UserCard = ({ name, friends, newUser }) => {
               {name}
             </p>
             <p style={{ fontSize: "0.9rem" }}>
-              {friends.length} {friends.length === 1 ? "friend" : "friends"}
+              {friends !== undefined ? friends.length : "0"}{" "}
+              {friends !== undefined
+                ? friends.length <= 1
+                  ? "friend"
+                  : "friends"
+                : "friends"}
             </p>
           </div>
         </Grid>
