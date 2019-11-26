@@ -4,6 +4,15 @@ import { AppContext } from "../../../App";
 import useInputState from "../../../hooks/useInputState";
 import { withRouter } from "react-router";
 
+// Styles
+import {
+  Card,
+  Heading,
+  Subtitle,
+  InputContainer,
+  SignIn
+} from "./inputSection.style";
+
 const InputSection = ({ history }) => {
   const [username, updateUsername, resetUsername] = useInputState("");
   const [password, updatePassword, resetPassword] = useInputState("");
@@ -30,13 +39,20 @@ const InputSection = ({ history }) => {
   };
 
   return (
-    <div style={{ marginBottom: "1rem" }}>
-      <h1>Sign In</h1>
-      <p>Username:</p>
-      <input type="text" value={username} onChange={updateUsername} />
-      <p>Password:</p>
-      <input type="password" value={password} onChange={updatePassword} />
-      <button
+    <Card style={{ marginBottom: "1rem" }}>
+      <Heading>Sign in</Heading>
+
+      <InputContainer>
+        <Subtitle>Username</Subtitle>
+        <input type="text" value={username} onChange={updateUsername} />
+      </InputContainer>
+
+      <InputContainer>
+        <Subtitle>Password</Subtitle>
+        <input type="password" value={password} onChange={updatePassword} />
+      </InputContainer>
+
+      <SignIn
         onClick={() => {
           signIn();
 
@@ -45,8 +61,8 @@ const InputSection = ({ history }) => {
         }}
       >
         Sign in
-      </button>
-    </div>
+      </SignIn>
+    </Card>
   );
 };
 

@@ -4,6 +4,14 @@ import { AppContext } from "../../../App";
 import { withRouter } from "react-router";
 import useInputState from "../../../hooks/useInputState";
 
+// Styles
+import { NewCard, CreateAccount } from "./createAccountInputSection";
+import {
+  Heading,
+  Subtitle,
+  InputContainer
+} from "../InputSection/inputSection.style";
+
 const CreateAccountInputSection = ({ history }) => {
   const [username, updateUsername, resetUsername] = useInputState("");
   const [password, updatePassword, resetPassword] = useInputState("");
@@ -24,13 +32,20 @@ const CreateAccountInputSection = ({ history }) => {
   };
 
   return (
-    <div>
-      <h1>Create Account</h1>
-      <p>Username:</p>
-      <input type="text" value={username} onChange={updateUsername} />
-      <p>Password:</p>
-      <input type="password" value={password} onChange={updatePassword} />
-      <button
+    <NewCard>
+      <Heading>Create account</Heading>
+
+      <InputContainer>
+        <Subtitle>Username</Subtitle>
+        <input type="text" value={username} onChange={updateUsername} />
+      </InputContainer>
+
+      <InputContainer>
+        <Subtitle>Password</Subtitle>
+        <input type="password" value={password} onChange={updatePassword} />
+      </InputContainer>
+
+      <CreateAccount
         onClick={() => {
           createAccount();
 
@@ -39,8 +54,8 @@ const CreateAccountInputSection = ({ history }) => {
         }}
       >
         Create account
-      </button>
-    </div>
+      </CreateAccount>
+    </NewCard>
   );
 };
 
