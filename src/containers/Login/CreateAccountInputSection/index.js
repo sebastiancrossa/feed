@@ -1,53 +1,47 @@
 // Libraries
 import React, { useContext } from "react";
 import { AppContext } from "../../../App";
-import useInputState from "../../../hooks/useInputState";
 import { withRouter } from "react-router";
+import useInputState from "../../../hooks/useInputState";
 
-const InputSection = ({ history }) => {
+const CreateAccountInputSection = ({ history }) => {
   const [username, updateUsername, resetUsername] = useInputState("");
   const [password, updatePassword, resetPassword] = useInputState("");
 
   const AppState = useContext(AppContext);
 
-  const signIn = async () => {
-    let filteredData;
-
+  const createAccount = async () => {
     if (AppState) {
-      filteredData = AppState.userList.filter(user => user.name === username);
-
-      console.log(filteredData);
-
-      if (
-        filteredData[0].name === username &&
-        filteredData[0].password === password
-      ) {
-        await AppState.setSelectedUser(username);
-        history.push("/");
-        console.log(true);
-      }
+      AppState.setUserList([
+        ...AppState.userList,
+        {
+          name: username,
+          password: password,
+          followers: []
+        }
+      ]);
     }
   };
 
   return (
-    <div style={{ marginBottom: "1rem" }}>
-      <h1>Sign In</h1>
+    <div>
+      <h1>Create Account</h1>
       <p>Username:</p>
       <input type="text" value={username} onChange={updateUsername} />
       <p>Password:</p>
       <input type="password" value={password} onChange={updatePassword} />
       <button
         onClick={() => {
-          signIn();
+          createAccount();
 
           resetUsername();
           resetPassword();
         }}
       >
-        Sign in
+        Create account
       </button>
     </div>
   );
 };
 
-export default withRouter(InputSection);
+export default withRouter(CreateAccountInputSection);

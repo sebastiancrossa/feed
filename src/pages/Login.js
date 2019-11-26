@@ -3,12 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Component Imports
-import InputSection from "../containers/Login/InputSection";
+import LoginInputSection from "../containers/Login/InputSection";
+import CreateInputSeccion from "../containers/Login/CreateAccountInputSection";
 
 const Login = () => {
   return (
     <div>
-      <InputSection />
+      <LoginInputSection />
+      <CreateInputSeccion />
     </div>
   );
 };
