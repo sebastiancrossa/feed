@@ -26,11 +26,7 @@ function App() {
   const posts = [
     {
       name: "Sebastian",
-      text: "Hello guys this is a wonderful day"
-    },
-    {
-      name: "Jonathan",
-      text: "YA quiero acabar este proyecto"
+      text: "Ya casi acaba el semestre :)"
     }
   ];
 

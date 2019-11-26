@@ -80,7 +80,7 @@ export const UserCard = ({ name, friends, newUser }) => {
 
           {followedByUser ? (
             <FollowingButton>
-              <span>FRIEND</span>
+              <span>FRIENDS</span>
             </FollowingButton>
           ) : (
             <FollowButton>ADD</FollowButton>

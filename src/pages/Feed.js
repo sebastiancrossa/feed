@@ -10,7 +10,18 @@ import { UserPostInput } from "../containers/Feed/Posts/UserPostInput";
 import { PostCard } from "../containers/Feed/Posts/PostCard";
 
 const Feed = () => {
+  const [posts, setPosts] = useState();
   const AppState = useContext(AppContext);
+
+  const fetchPosts = () => {
+    if (AppState !== undefined) {
+      setPosts(AppState.postList);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, [AppState]);
 
   return (
     <div>
@@ -22,10 +33,12 @@ const Feed = () => {
         </div>
         <div style={{ marginRight: "2rem" }}>
           <UserPostInput />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+
+          {posts ? (
+            posts.map(post => <PostCard user={post.name} text={post.text} />)
+          ) : (
+            <h1>Loading...</h1>
+          )}
         </div>
       </Grid>
     </div>
