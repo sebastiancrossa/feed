@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-  background-color: wheat;
+  background-color: white;
   padding: 1rem;
 
   z-index: 2;
@@ -15,5 +15,27 @@ export const Nav = styled.nav`
 export const Container = styled.div`
   max-width: 97%;
   margin: 0 auto;
-  background-color: pink;
+
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+`;
+
+export const Links = styled.ul`
+  list-style: none;
+`;
+
+export const SignOut = styled.button`
+  background: none;
+  background-color: var(--color-main);
+  border-radius: 5px;
+  border: none;
+
+  height: 2.5rem;
+  padding: 0 1rem;
+
+  color: white;
+  font-weight: 700;
+
+  cursor: pointer;
 `;

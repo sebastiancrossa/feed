@@ -4,7 +4,7 @@ import { AppContext } from "../../../App";
 import { Link } from "react-router-dom";
 
 // Styles
-import { Nav, Container } from "./navbar.style";
+import { Nav, Container, SignOut } from "./navbar.style";
 
 export const Navbar = () => {
   const AppState = useContext(AppContext);
@@ -20,15 +20,15 @@ export const Navbar = () => {
       <Container>
         <h1>Feed</h1>
 
-        <ul>
+        <ul style={{ listStyle: "none" }}>
           <li>
-            <button
+            <SignOut
               onClick={() => {
                 signOut();
               }}
             >
               Sign out
-            </button>
+            </SignOut>
           </li>
         </ul>
       </Container>
