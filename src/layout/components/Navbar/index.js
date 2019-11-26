@@ -1,11 +1,20 @@
 // Libraries
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../../App";
 import { Link } from "react-router-dom";
 
 // Styles
 import { Nav, Container } from "./navbar.style";
 
 export const Navbar = () => {
+  const AppState = useContext(AppContext);
+
+  const signOut = async () => {
+    if (AppState) {
+      AppState.setSelectedUser("");
+    }
+  };
+
   return (
     <Nav>
       <Container>
@@ -13,7 +22,13 @@ export const Navbar = () => {
 
         <ul>
           <li>
-            <Link to="/login">login</Link>
+            <button
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Sign out
+            </button>
           </li>
         </ul>
       </Container>
