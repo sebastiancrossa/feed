@@ -32,6 +32,12 @@ function App() {
     }
   ];
 
+  const adjacencyListVar = {
+    Sebastian: ["Daniel"],
+    Daniel: ["Sebastian", "Jonathan"],
+    Jonathan: ["Daniel"]
+  };
+
   const posts = [
     {
       name: "Sebastian",
@@ -41,11 +47,13 @@ function App() {
 
   const [userList, setUserList] = useState(null);
   const [postList, setPostList] = useState(null);
+  const [adjacencyList, setAdjacencyList] = useState(null);
   const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
     setUserList(users);
     setPostList(posts);
+    setAdjacencyList(adjacencyListVar);
   }, []);
 
   return (
@@ -56,7 +64,9 @@ function App() {
         userList,
         setUserList,
         postList,
-        setPostList
+        setPostList,
+        adjacencyList,
+        setAdjacencyList
       }}
     >
       <BrowserRouter>

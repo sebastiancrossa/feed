@@ -103,7 +103,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
           user.friends = user.friends.filter(
             friend => friend !== AppState.selectedUser
           );
-          console.log("Eliminado: " + user.friends);
         }
       });
 
@@ -117,7 +116,16 @@ export const UserCard = withRouter(({ history, name, friends }) => {
       filteredUser[0].friends = filteredUser[0].friends.filter(
         friend => friend !== name
       );
-      console.log("Eliminado del actual : " + filteredUser[0].friends);
+
+      // Completa el unfollow en la lista de adjacencia gloabl
+      AppState.adjacencyList[AppState.selectedUser] = AppState.adjacencyList[
+        AppState.selectedUser
+      ].filter(vertex => vertex !== name);
+      AppState.adjacencyList[name] = AppState.adjacencyList[name].filter(
+        vertex => vertex !== AppState.selectedUser
+      );
+
+      console.log(AppState.adjacencyList);
 
       setFollowedByUser(false);
       history.push("/search");

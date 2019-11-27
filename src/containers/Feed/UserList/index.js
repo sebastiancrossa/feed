@@ -27,6 +27,22 @@ export const UserList = () => {
     fetchData();
   }, [AppState]);
 
+  const DFSrec = () => {
+    let filteredUser;
+
+    if (AppState) {
+      filteredUser = AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      let res = [];
+      let visited = {};
+      let friendList = filteredUser.friends;
+
+      function helper() {}
+    }
+  };
+
   return (
     <List>
       {data !== undefined ? (
