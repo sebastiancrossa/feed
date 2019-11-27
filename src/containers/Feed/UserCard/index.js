@@ -106,26 +106,13 @@ export const UserCard = ({ name, friends, newUser }) => {
           </div>
         </Grid>
 
-        <ButtonGrid>
-          <SelectButton
-            onClick={async () => {
-              if (AppState !== undefined) {
-                await AppState.setSelectedUser(name);
-                console.log(AppState.selectedUser);
-              }
-            }}
-          >
-            LOGIN
-          </SelectButton>
-
-          {followedByUser ? (
-            <FollowingButton>
-              <span>FRIENDS</span>
-            </FollowingButton>
-          ) : (
-            <FollowButton onClick={() => followUser()}>ADD</FollowButton>
-          )}
-        </ButtonGrid>
+        {followedByUser ? (
+          <FollowingButton>
+            <span>FRIENDS</span>
+          </FollowingButton>
+        ) : (
+          <FollowButton onClick={() => followUser()}>ADD</FollowButton>
+        )}
       </Card>
     );
   }

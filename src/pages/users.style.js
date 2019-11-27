@@ -14,7 +14,8 @@ export const InputCard = styled.div`
   display: flex;
 
   padding: 1rem;
-  margin-bottom: 1.5rem;
+  margin: 0 auto 1.5rem auto;
+  max-width: ${({ width }) => (width ? width : "100%")};
 
   -webkit-box-shadow: 0px 0px 96px 9px rgba(175, 180, 209, 0.59);
   -moz-box-shadow: 0px 0px 96px 9px rgba(175, 180, 209, 0.59);

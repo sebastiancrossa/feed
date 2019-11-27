@@ -17,11 +17,12 @@ const Users = () => {
 
       <div style={{ margin: "0 auto 2rem auto" }}>
         <Header>Search for other users</Header>
-        <InputCard>
+        <InputCard width={`${75}%`}>
           <Input
             type="text"
             value={buscar}
             onChange={updateBuscar}
+            width={`${80}%`}
             placeholder="Buscar..."
           />
           <SearchButton>BUSCAR</SearchButton>
