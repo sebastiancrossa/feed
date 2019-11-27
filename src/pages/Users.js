@@ -19,7 +19,7 @@ const Users = () => {
       <Navbar />
 
       <div style={{ margin: "0 auto 2rem auto" }}>
-        <Header>Search your friends list</Header>
+        <Header>Search your users</Header>
         <InputCard width={`${75}%`}>
           <Input
             type="text"
