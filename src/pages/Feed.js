@@ -15,8 +15,27 @@ const Feed = () => {
   const AppState = useContext(AppContext);
 
   const fetchPosts = () => {
+    let filteredPosts;
+    let filteredUser;
+
     if (AppState !== undefined) {
-      setPosts(AppState.postList);
+      filteredUser = AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      if (filteredUser[0].friends !== undefined) {
+        filteredPosts = AppState.postList.filter(
+          post =>
+            filteredUser[0].friends.includes(post.name) ||
+            post.name === AppState.selectedUser
+        );
+      } else {
+        filteredPosts = AppState.postList.filter(
+          post => post.name === AppState.selectedUser
+        );
+      }
+
+      setPosts(filteredPosts);
     }
   };
 
@@ -36,7 +55,13 @@ const Feed = () => {
           <UserPostInput />
 
           {posts ? (
-            posts.map(post => <PostCard user={post.name} text={post.text} />)
+            posts.length > 0 ? (
+              posts.map(post => <PostCard user={post.name} text={post.text} />)
+            ) : (
+              <h1 style={{ color: "var(--color-gray)" }}>
+                Make new friends so you can see their posts here :)
+              </h1>
+            )
           ) : (
             <h1>Loading...</h1>
           )}
