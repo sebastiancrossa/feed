@@ -27,12 +27,12 @@ export const ProfileInfo = () => {
     fetchData();
   }, [AppState]);
 
-  const rejectRequest = user => {
+  const rejectRequest = name => {
     let filteredRequests;
     let filteredUser;
 
     if (AppState) {
-      filteredRequests = data[0].requests.filter(request => request !== user);
+      filteredRequests = data[0].requests.filter(request => request !== name);
 
       filteredUser = AppState.userList.filter(
         user => user.name === AppState.selectedUser
@@ -41,6 +41,38 @@ export const ProfileInfo = () => {
       filteredUser[0].requests = filteredRequests;
 
       fetchData();
+    }
+  };
+
+  const acceptRequest = name => {
+    // Lo llamamos para que elimine el nombre en la lista de solicitudes del usuario seleciconado
+    rejectRequest(name);
+
+    let filteredUser = AppState.userList.filter(
+      user => user.name === AppState.selectedUser
+    );
+
+    if (AppState) {
+      AppState.userList.map(user => {
+        if (user.name === name) {
+          if (user.friends === undefined) {
+            user.friends = [AppState.selectedUser];
+          } else {
+            user.friends.push(AppState.selectedUser);
+          }
+        }
+      });
+
+      filteredUser = AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      if (filteredUser[0].friends === undefined) {
+        filteredUser.friends = [name];
+      } else {
+        filteredUser[0].friends.push(name);
+        console.log("Added | ", AppState.filteredUser);
+      }
     }
   };
 
@@ -110,7 +142,7 @@ export const ProfileInfo = () => {
 
                 <FiCheck
                   size={18}
-                  onClick={() => console.log("clicked")}
+                  onClick={() => acceptRequest(request)}
                   style={{
                     color: "green",
                     cursor: "pointer",
