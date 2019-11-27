@@ -23,7 +23,7 @@ const Users = () => {
             value={buscar}
             onChange={updateBuscar}
             width={`${80}%`}
-            placeholder="Buscar..."
+            placeholder="Buscar por nombre"
           />
           <SearchButton>BUSCAR</SearchButton>
         </InputCard>

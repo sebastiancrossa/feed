@@ -1,119 +1,124 @@
 // Libraries
 import React, { useState, useEffect, useContext } from "react";
-import App, { AppContext } from "../../../App";
-import { FaUserCircle, FaPlus } from "react-icons/fa";
+import { AppContext } from "../../../App";
+import { FaUserCircle } from "react-icons/fa";
+import { withRouter } from "react-router";
 
 // Styles
-import {
-  Card,
-  NewUserCard,
-  Grid,
-  ButtonGrid,
-  SelectButton,
-  FollowButton,
-  FollowingButton
-} from "./userCard.style";
+import { Card, Grid, FollowButton, FollowingButton } from "./userCard.style";
 
-export const UserCard = ({ name, friends, newUser }) => {
+export const UserCard = withRouter(({ history, name, friends }) => {
   const [followedByUser, setFollowedByUser] = useState();
   const AppState = useContext(AppContext);
 
-  useEffect(() => {
+  const checkFollow = () => {
     if (friends !== undefined) {
+      console.log("Name: ", name, " Friends: ", friends);
       friends.map(follower => {
         if (follower === AppState.selectedUser) setFollowedByUser(true);
       });
     }
-  }, [AppState]);
-
-  const createUser = () => {
-    const name = prompt("Name: ");
-
-    AppState.setUserList([
-      ...AppState.userList,
-      {
-        name: name,
-        followers: []
-      }
-    ]);
   };
 
-  const followUser = () => {
+  useEffect(() => {
+    checkFollow();
+  }, [AppState]);
+
+  const followUser = async () => {
+    let filteredUser;
+
     if (AppState) {
-      console.log("called");
       AppState.userList.map(user => {
         if (user.name === name) {
           if (user.friends === undefined) {
             user.friends = [AppState.selectedUser];
           } else {
             user.friends.push(AppState.selectedUser);
-            console.log("added");
           }
-
-          /*
-          if (AppState.selectedUser.friends === undefined) {
-            AppState.friends = [user.name];
-          } else {
-            AppState.friends.push(AppState.selectedUser);
-            console.log("added");
-          }
-          */
         }
       });
+
+      filteredUser = await AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      if (filteredUser[0].friends === undefined) {
+        filteredUser.friends = [name];
+      } else {
+        filteredUser[0].friends.push(name);
+        console.log("Added | ", AppState.filteredUser);
+      }
+
+      setFollowedByUser(true);
+      history.push("/search");
     }
   };
 
-  if (newUser) {
-    return (
-      <NewUserCard onClick={() => createUser()}>
-        <FaPlus
-          size={30}
-          style={{
-            color: "var(--color-gray)",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)"
-          }}
-        />
-      </NewUserCard>
-    );
-  } else {
-    return (
-      <Card>
-        <Grid>
-          <div>
-            <FaUserCircle size={50} style={{ color: "var(--color-gray)" }} />
-          </div>
+  const unfriendUser = async () => {
+    let filteredUser;
 
-          <div style={{ textAlign: "left" }}>
-            <p
-              style={{
-                fontSize: "1.1rem",
-                fontWeight: "600"
-              }}
-            >
-              {name}
-            </p>
-            <p style={{ fontSize: "0.9rem" }}>
-              {friends !== undefined ? friends.length : "0"}{" "}
-              {friends !== undefined
-                ? friends.length <= 1
-                  ? "friend"
-                  : "friends"
-                : "friends"}
-            </p>
-          </div>
-        </Grid>
+    if (AppState) {
+      // Elimina el nombre del usuario actual de la lista de amigos del que picó
+      AppState.userList.map(user => {
+        if (user.name === name) {
+          user.friends = user.friends.filter(
+            friend => friend !== AppState.selectedUser
+          );
+          console.log("Eliminado: " + user.friends);
+        }
+      });
 
-        {followedByUser ? (
-          <FollowingButton>
-            <span>FRIENDS</span>
-          </FollowingButton>
-        ) : (
-          <FollowButton onClick={() => followUser()}>ADD</FollowButton>
-        )}
-      </Card>
-    );
-  }
-};
+      // Elimina el nombre del usuario al que le picó de la lista de amigos del usuario actual
+      filteredUser = await AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      console.log(filteredUser[0]);
+
+      filteredUser[0].friends = filteredUser[0].friends.filter(
+        friend => friend !== name
+      );
+      console.log("Eliminado del actual : " + filteredUser[0].friends);
+
+      setFollowedByUser(false);
+      history.push("/search");
+    }
+  };
+
+  return (
+    <Card>
+      <Grid>
+        <div>
+          <FaUserCircle size={50} style={{ color: "var(--color-gray)" }} />
+        </div>
+
+        <div style={{ textAlign: "left" }}>
+          <p
+            style={{
+              fontSize: "1.1rem",
+              fontWeight: "600"
+            }}
+          >
+            {name}
+          </p>
+          <p style={{ fontSize: "0.9rem" }}>
+            {friends !== undefined ? friends.length : "0"}{" "}
+            {friends !== undefined
+              ? friends.length <= 1
+                ? "friend"
+                : "friends"
+              : "friends"}
+          </p>
+        </div>
+      </Grid>
+
+      {followedByUser ? (
+        <FollowingButton onClick={() => unfriendUser()}>
+          <span>FRIENDS</span>
+        </FollowingButton>
+      ) : (
+        <FollowButton onClick={() => followUser()}>ADD</FollowButton>
+      )}
+    </Card>
+  );
+});

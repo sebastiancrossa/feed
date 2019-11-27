@@ -10,7 +10,7 @@ export const Card = styled.div`
 
   text-align: center;
 
-  width: 15rem;
+  width: 17rem;
   height: 10rem;
 
   -webkit-box-shadow: 0px 0px 96px 9px rgba(175, 180, 209, 0.59);

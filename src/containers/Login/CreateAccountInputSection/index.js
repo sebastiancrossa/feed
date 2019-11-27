@@ -29,7 +29,7 @@ const CreateAccountInputSection = ({ history }) => {
         {
           name: username,
           password: password,
-          followers: []
+          friends: []
         }
       ]);
     }
