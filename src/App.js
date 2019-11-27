@@ -15,17 +15,20 @@ function App() {
     {
       name: "Sebastian",
       password: "123",
-      friends: ["Daniel"]
+      friends: ["Daniel"],
+      requests: ["Jonathan"]
     },
     {
       name: "Daniel",
       password: "jericho",
-      friends: ["Sebastian", "Jonathan"]
+      friends: ["Sebastian", "Jonathan"],
+      requests: []
     },
     {
       name: "Jonathan",
       password: "google",
-      friends: ["Daniel"]
+      friends: ["Daniel"],
+      requests: []
     }
   ];
 

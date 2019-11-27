@@ -2,9 +2,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../../App";
 import { FaUserCircle } from "react-icons/fa";
+import { FiCheck, FiX } from "react-icons/fi";
 
 // Styles
-import { Card, Follower } from "./profileInfo.style";
+import { Card, Follower, Request, Empty } from "./profileInfo.style";
 
 export const ProfileInfo = () => {
   const [data, setData] = useState();
@@ -25,6 +26,23 @@ export const ProfileInfo = () => {
   useEffect(() => {
     fetchData();
   }, [AppState]);
+
+  const rejectRequest = user => {
+    let filteredRequests;
+    let filteredUser;
+
+    if (AppState) {
+      filteredRequests = data[0].requests.filter(request => request !== user);
+
+      filteredUser = AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      filteredUser[0].requests = filteredRequests;
+
+      fetchData();
+    }
+  };
 
   return (
     <Card>
@@ -49,11 +67,11 @@ export const ProfileInfo = () => {
         </p>
       </div>
 
-      <div>
+      <div style={{ marginBottom: "0.8rem" }}>
         <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Friends:</p>
 
         {data !== undefined ? (
-          data[0].friends !== undefined ? (
+          data[0].friends.length !== 0 ? (
             data[0].friends.map(friend => (
               <Follower>
                 <FaUserCircle
@@ -67,10 +85,52 @@ export const ProfileInfo = () => {
               </Follower>
             ))
           ) : (
-            <h1>No friends</h1>
+            <Empty>No friends</Empty>
           )
         ) : (
-          <h1>Loading...</h1>
+          <Empty>Loading...</Empty>
+        )}
+      </div>
+
+      <div>
+        <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Requests:</p>
+
+        {data !== undefined ? (
+          data[0].requests.length !== 0 ? (
+            data[0].requests.map(request => (
+              <Request>
+                <FaUserCircle
+                  size={30}
+                  style={{
+                    color: "var(--color-gray)",
+                    marginRight: "1rem"
+                  }}
+                />
+                <p style={{ marginRight: "1.5rem" }}>{request}</p>
+
+                <FiCheck
+                  size={18}
+                  onClick={() => console.log("clicked")}
+                  style={{
+                    color: "green",
+                    cursor: "pointer",
+                    marginRight: "0.3rem"
+                  }}
+                />
+                <FiX
+                  size={18}
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={() => {
+                    rejectRequest(request);
+                  }}
+                />
+              </Request>
+            ))
+          ) : (
+            <Empty>No requests</Empty>
+          )
+        ) : (
+          <Empty>Loading...</Empty>
         )}
       </div>
     </Card>

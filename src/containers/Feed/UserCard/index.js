@@ -5,10 +5,18 @@ import { FaUserCircle } from "react-icons/fa";
 import { withRouter } from "react-router";
 
 // Styles
-import { Card, Grid, FollowButton, FollowingButton } from "./userCard.style";
+import {
+  Card,
+  Grid,
+  FollowButton,
+  FollowingButton,
+  RequestSentButton
+} from "./userCard.style";
 
 export const UserCard = withRouter(({ history, name, friends }) => {
   const [followedByUser, setFollowedByUser] = useState();
+  const [requestSent, setRequestSent] = useState();
+
   const AppState = useContext(AppContext);
 
   const checkFollow = () => {
@@ -20,9 +28,40 @@ export const UserCard = withRouter(({ history, name, friends }) => {
     }
   };
 
+  const checkRequest = () => {
+    let filteredUser;
+
+    if (AppState) {
+      filteredUser = AppState.userList.filter(user => user.name === name);
+
+      filteredUser[0].requests.map(user => {
+        if (user === AppState.selectedUser) setRequestSent(true);
+      });
+    }
+  };
+
   useEffect(() => {
     checkFollow();
+    checkRequest();
   }, [AppState]);
+
+  const sendFriendRequest = () => {
+    let filteredUser;
+
+    if (AppState) {
+      filteredUser = AppState.userList.filter(user => user.name === name);
+
+      if (filteredUser[0].requests === undefined) {
+        filteredUser[0].requests = [AppState.selectedUser];
+      } else {
+        filteredUser[0].requests.push(AppState.selectedUser);
+      }
+
+      console.log(filteredUser);
+    }
+
+    setRequestSent(true);
+  };
 
   const followUser = async () => {
     let filteredUser;
@@ -116,8 +155,10 @@ export const UserCard = withRouter(({ history, name, friends }) => {
         <FollowingButton onClick={() => unfriendUser()}>
           <span>FRIENDS</span>
         </FollowingButton>
+      ) : requestSent ? (
+        <RequestSentButton>SENT</RequestSentButton>
       ) : (
-        <FollowButton onClick={() => followUser()}>ADD</FollowButton>
+        <FollowButton onClick={() => sendFriendRequest()}>ADD</FollowButton>
       )}
     </Card>
   );
