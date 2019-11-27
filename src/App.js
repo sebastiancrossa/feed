@@ -6,6 +6,7 @@ import { ProtectedRoute } from "./layout/ProtectedRoute";
 // Page Imports
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
+import Users from "./pages/Users";
 
 export const AppContext = createContext(null);
 
@@ -58,6 +59,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <ProtectedRoute exact path="/" component={Feed} />
+          <ProtectedRoute exact path="/search" component={Users} />
           <Route exact path="/login" component={Login} />
 
           <Route component={() => <h1>404</h1>} />

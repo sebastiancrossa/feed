@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Nav = styled.nav`
   background-color: white;
@@ -22,7 +23,19 @@ export const Container = styled.div`
 `;
 
 export const Links = styled.ul`
+  display: flex;
+
   list-style: none;
+`;
+
+export const HomeLink = styled(Link)`
+  color: var(--color-text);
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  &:visited {
+    color: var(--color-text);
+  }
 `;
 
 export const SignOut = styled.button`
@@ -35,6 +48,22 @@ export const SignOut = styled.button`
   padding: 0 1rem;
 
   color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  cursor: pointer;
+`;
+
+export const SearchButton = styled.button`
+  background: none;
+  border-radius: 5px;
+  border: 2px solid var(--color-main);
+
+  height: 2.5rem;
+  padding: 0 1rem;
+
+  color: var(--color-main);
+  font-size: 0.9rem;
   font-weight: 700;
 
   cursor: pointer;
