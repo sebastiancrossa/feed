@@ -54,6 +54,37 @@ export const UserCard = withRouter(({ history, name, friends }) => {
     }
   };
 
+  const unfriendUser = async () => {
+    let filteredUser;
+
+    if (AppState) {
+      // Elimina el nombre del usuario actual de la lista de amigos del que picó
+      AppState.userList.map(user => {
+        if (user.name === name) {
+          user.friends = user.friends.filter(
+            friend => friend !== AppState.selectedUser
+          );
+          console.log("Eliminado: " + user.friends);
+        }
+      });
+
+      // Elimina el nombre del usuario al que le picó de la lista de amigos del usuario actual
+      filteredUser = await AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      console.log(filteredUser[0]);
+
+      filteredUser[0].friends = filteredUser[0].friends.filter(
+        friend => friend !== name
+      );
+      console.log("Eliminado del actual : " + filteredUser[0].friends);
+
+      setFollowedByUser(false);
+      history.push("/search");
+    }
+  };
+
   return (
     <Card>
       <Grid>
@@ -82,7 +113,7 @@ export const UserCard = withRouter(({ history, name, friends }) => {
       </Grid>
 
       {followedByUser ? (
-        <FollowingButton>
+        <FollowingButton onClick={() => unfriendUser()}>
           <span>FRIENDS</span>
         </FollowingButton>
       ) : (
