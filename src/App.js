@@ -50,6 +50,8 @@ function App() {
   const [adjacencyList, setAdjacencyList] = useState(null);
   const [selectedUser, setSelectedUser] = useState("");
 
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
     setUserList(users);
     setPostList(posts);
@@ -66,7 +68,9 @@ function App() {
         postList,
         setPostList,
         adjacencyList,
-        setAdjacencyList
+        setAdjacencyList,
+        query,
+        setQuery
       }}
     >
       <BrowserRouter>

@@ -21,7 +21,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
 
   const checkFollow = () => {
     if (friends !== undefined) {
-      console.log("Name: ", name, " Friends: ", friends);
       friends.map(follower => {
         if (follower === AppState.selectedUser) setFollowedByUser(true);
       });
@@ -56,8 +55,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
       } else {
         filteredUser[0].requests.push(AppState.selectedUser);
       }
-
-      console.log(filteredUser);
     }
 
     setRequestSent(true);
@@ -85,7 +82,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
         filteredUser.friends = [name];
       } else {
         filteredUser[0].friends.push(name);
-        console.log("Added | ", AppState.filteredUser);
       }
 
       setFollowedByUser(true);
@@ -111,8 +107,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
         user => user.name === AppState.selectedUser
       );
 
-      console.log(filteredUser[0]);
-
       filteredUser[0].friends = filteredUser[0].friends.filter(
         friend => friend !== name
       );
@@ -124,8 +118,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
       AppState.adjacencyList[name] = AppState.adjacencyList[name].filter(
         vertex => vertex !== AppState.selectedUser
       );
-
-      console.log(AppState.adjacencyList);
 
       setFollowedByUser(false);
       history.push("/search");

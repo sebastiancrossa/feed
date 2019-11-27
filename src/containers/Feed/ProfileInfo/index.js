@@ -49,7 +49,6 @@ export const ProfileInfo = () => {
   const acceptRequest = name => {
     // Lo llamamos para que elimine el nombre en la lista de solicitudes del usuario seleciconado
     rejectRequest(name);
-    let localAdjecencyList = AppState.adjecencyList;
 
     let filteredUser = AppState.userList.filter(
       user => user.name === AppState.selectedUser
@@ -75,14 +74,12 @@ export const ProfileInfo = () => {
         filteredUser.friends = [name];
       } else {
         filteredUser[0].friends.push(name);
-        console.log("Added | ", AppState.filteredUser);
       }
 
       // Se agregan las conexiónes (edges) a la lista de adjacencia global que te tiene
       // Manera más común y conocida
       AppState.adjacencyList[AppState.selectedUser].push(name);
       AppState.adjacencyList[name].push(AppState.selectedUser);
-      console.log(AppState.adjacencyList);
     }
   };
 
