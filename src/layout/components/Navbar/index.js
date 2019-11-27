@@ -2,11 +2,19 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../../App";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 // Styles
-import { Nav, Container, SignOut } from "./navbar.style";
+import {
+  Nav,
+  Container,
+  Links,
+  HomeLink,
+  SearchButton,
+  SignOut
+} from "./navbar.style";
 
-export const Navbar = () => {
+export const Navbar = withRouter(({ history }) => {
   const AppState = useContext(AppContext);
 
   const signOut = async () => {
@@ -18,10 +26,15 @@ export const Navbar = () => {
   return (
     <Nav>
       <Container>
-        <h1>Feed</h1>
+        <HomeLink to="/">Feed</HomeLink>
 
-        <ul style={{ listStyle: "none" }}>
+        <Links>
           <li>
+            <SearchButton onClick={() => history.push("/search")}>
+              Search
+            </SearchButton>
+          </li>
+          <li style={{ marginLeft: "1rem" }}>
             <SignOut
               onClick={() => {
                 signOut();
@@ -30,8 +43,8 @@ export const Navbar = () => {
               Sign out
             </SignOut>
           </li>
-        </ul>
+        </Links>
       </Container>
     </Nav>
   );
-};
+});
