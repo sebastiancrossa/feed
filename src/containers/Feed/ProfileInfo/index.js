@@ -78,6 +78,14 @@ export const ProfileInfo = () => {
 
       // Se agregan las conexiónes (edges) a la lista de adjacencia global que te tiene
       // Manera más común y conocida
+      if (!AppState.adjacencyList[AppState.selectedUser]) {
+        AppState.adjacencyList[AppState.selectedUser] = [];
+      }
+
+      if (!AppState.adjacencyList[name]) {
+        AppState.adjacencyList[name] = [];
+      }
+
       AppState.adjacencyList[AppState.selectedUser].push(name);
       AppState.adjacencyList[name].push(AppState.selectedUser);
     }
