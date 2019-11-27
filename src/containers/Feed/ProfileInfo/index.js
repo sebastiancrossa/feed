@@ -2,9 +2,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../../App";
 import { FaUserCircle } from "react-icons/fa";
+import { FiCheck, FiX } from "react-icons/fi";
 
 // Styles
-import { Card, Follower } from "./profileInfo.style";
+import { Card, Follower, Request, Empty } from "./profileInfo.style";
 
 export const ProfileInfo = () => {
   const [data, setData] = useState();
@@ -14,6 +15,7 @@ export const ProfileInfo = () => {
     let filteredUserData;
 
     if (AppState.userList !== null) {
+      // Agarra sólo la información del usuario actual y lo guarda
       filteredUserData = AppState.userList.filter(
         user => user.name == AppState.selectedUser
       );
@@ -22,9 +24,64 @@ export const ProfileInfo = () => {
     setData(filteredUserData);
   };
 
+  // Actualizar la variable de data cada vez que se monta el componente y se actualiza AppState
   useEffect(() => {
     fetchData();
   }, [AppState]);
+
+  const rejectRequest = name => {
+    let filteredRequests;
+    let filteredUser;
+
+    if (AppState) {
+      filteredRequests = data[0].requests.filter(request => request !== name);
+
+      filteredUser = AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      filteredUser[0].requests = filteredRequests;
+
+      fetchData();
+    }
+  };
+
+  const acceptRequest = name => {
+    // Lo llamamos para que elimine el nombre en la lista de solicitudes del usuario seleciconado
+    rejectRequest(name);
+
+    let filteredUser = AppState.userList.filter(
+      user => user.name === AppState.selectedUser
+    );
+
+    if (AppState) {
+      // Manipulado directamente los objectos en nuestra variable global de userList
+      AppState.userList.map(user => {
+        if (user.name === name) {
+          if (user.friends === undefined) {
+            user.friends = [AppState.selectedUser];
+          } else {
+            user.friends.push(AppState.selectedUser);
+          }
+        }
+      });
+
+      filteredUser = AppState.userList.filter(
+        user => user.name === AppState.selectedUser
+      );
+
+      if (filteredUser[0].friends === undefined) {
+        filteredUser.friends = [name];
+      } else {
+        filteredUser[0].friends.push(name);
+      }
+
+      // Se agregan las conexiónes (edges) a la lista de adjacencia global que te tiene
+      // Manera más común y conocida
+      AppState.adjacencyList[AppState.selectedUser].push(name);
+      AppState.adjacencyList[name].push(AppState.selectedUser);
+    }
+  };
 
   return (
     <Card>
@@ -49,11 +106,11 @@ export const ProfileInfo = () => {
         </p>
       </div>
 
-      <div>
+      <div style={{ marginBottom: "0.8rem" }}>
         <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Friends:</p>
 
         {data !== undefined ? (
-          data[0].friends !== undefined ? (
+          data[0].friends.length !== 0 ? (
             data[0].friends.map(friend => (
               <Follower>
                 <FaUserCircle
@@ -67,10 +124,52 @@ export const ProfileInfo = () => {
               </Follower>
             ))
           ) : (
-            <h1>No friends</h1>
+            <Empty>No friends</Empty>
           )
         ) : (
-          <h1>Loading...</h1>
+          <Empty>Loading...</Empty>
+        )}
+      </div>
+
+      <div>
+        <p style={{ textAlign: "left", marginBottom: "0.4rem" }}>Requests:</p>
+
+        {data !== undefined ? (
+          data[0].requests.length !== 0 ? (
+            data[0].requests.map(request => (
+              <Request>
+                <FaUserCircle
+                  size={30}
+                  style={{
+                    color: "var(--color-gray)",
+                    marginRight: "1rem"
+                  }}
+                />
+                <p style={{ marginRight: "1.5rem" }}>{request}</p>
+
+                <FiCheck
+                  size={18}
+                  onClick={() => acceptRequest(request)}
+                  style={{
+                    color: "green",
+                    cursor: "pointer",
+                    marginRight: "0.3rem"
+                  }}
+                />
+                <FiX
+                  size={18}
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={() => {
+                    rejectRequest(request);
+                  }}
+                />
+              </Request>
+            ))
+          ) : (
+            <Empty>No requests</Empty>
+          )
+        ) : (
+          <Empty>Loading...</Empty>
         )}
       </div>
     </Card>

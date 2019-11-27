@@ -5,24 +5,60 @@ import { FaUserCircle } from "react-icons/fa";
 import { withRouter } from "react-router";
 
 // Styles
-import { Card, Grid, FollowButton, FollowingButton } from "./userCard.style";
+import {
+  Card,
+  Grid,
+  FollowButton,
+  FollowingButton,
+  RequestSentButton
+} from "./userCard.style";
 
 export const UserCard = withRouter(({ history, name, friends }) => {
   const [followedByUser, setFollowedByUser] = useState();
+  const [requestSent, setRequestSent] = useState();
+
   const AppState = useContext(AppContext);
 
   const checkFollow = () => {
     if (friends !== undefined) {
-      console.log("Name: ", name, " Friends: ", friends);
       friends.map(follower => {
         if (follower === AppState.selectedUser) setFollowedByUser(true);
       });
     }
   };
 
+  const checkRequest = () => {
+    let filteredUser;
+
+    if (AppState) {
+      filteredUser = AppState.userList.filter(user => user.name === name);
+
+      filteredUser[0].requests.map(user => {
+        if (user === AppState.selectedUser) setRequestSent(true);
+      });
+    }
+  };
+
   useEffect(() => {
     checkFollow();
+    checkRequest();
   }, [AppState]);
+
+  const sendFriendRequest = () => {
+    let filteredUser;
+
+    if (AppState) {
+      filteredUser = AppState.userList.filter(user => user.name === name);
+
+      if (filteredUser[0].requests === undefined) {
+        filteredUser[0].requests = [AppState.selectedUser];
+      } else {
+        filteredUser[0].requests.push(AppState.selectedUser);
+      }
+    }
+
+    setRequestSent(true);
+  };
 
   const followUser = async () => {
     let filteredUser;
@@ -46,7 +82,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
         filteredUser.friends = [name];
       } else {
         filteredUser[0].friends.push(name);
-        console.log("Added | ", AppState.filteredUser);
       }
 
       setFollowedByUser(true);
@@ -64,7 +99,6 @@ export const UserCard = withRouter(({ history, name, friends }) => {
           user.friends = user.friends.filter(
             friend => friend !== AppState.selectedUser
           );
-          console.log("Eliminado: " + user.friends);
         }
       });
 
@@ -73,12 +107,17 @@ export const UserCard = withRouter(({ history, name, friends }) => {
         user => user.name === AppState.selectedUser
       );
 
-      console.log(filteredUser[0]);
-
       filteredUser[0].friends = filteredUser[0].friends.filter(
         friend => friend !== name
       );
-      console.log("Eliminado del actual : " + filteredUser[0].friends);
+
+      // Completa el unfollow en la lista de adjacencia gloabl
+      AppState.adjacencyList[AppState.selectedUser] = AppState.adjacencyList[
+        AppState.selectedUser
+      ].filter(vertex => vertex !== name);
+      AppState.adjacencyList[name] = AppState.adjacencyList[name].filter(
+        vertex => vertex !== AppState.selectedUser
+      );
 
       setFollowedByUser(false);
       history.push("/search");
@@ -116,8 +155,10 @@ export const UserCard = withRouter(({ history, name, friends }) => {
         <FollowingButton onClick={() => unfriendUser()}>
           <span>FRIENDS</span>
         </FollowingButton>
+      ) : requestSent ? (
+        <RequestSentButton>SENT</RequestSentButton>
       ) : (
-        <FollowButton onClick={() => followUser()}>ADD</FollowButton>
+        <FollowButton onClick={() => sendFriendRequest()}>ADD</FollowButton>
       )}
     </Card>
   );

@@ -92,3 +92,10 @@ export const FollowingButton = styled(FollowButton)`
     content: "UNFRIEND";
   }
 `;
+
+export const RequestSentButton = styled(SelectButton)`
+  background: none;
+
+  border: 3px solid #ff9ac1;
+  color: #ff9ac1;
+`;

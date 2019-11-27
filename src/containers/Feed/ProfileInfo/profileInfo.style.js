@@ -4,7 +4,7 @@ export const Card = styled.div`
   background-color: var(--color-white);
 
   width: 15rem;
-  height: 30rem;
+  height: 35rem;
 
   padding: 1.35rem;
 
@@ -30,4 +30,11 @@ export const Follower = styled.div`
   &:hover {
     background-color: var(--color-gray-light);
   }
+`;
+
+export const Request = styled(Follower)``;
+
+export const Empty = styled.p`
+  color: var(--color-gray);
+  font-weight: 600;
 `;

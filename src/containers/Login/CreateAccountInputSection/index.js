@@ -24,12 +24,15 @@ const CreateAccountInputSection = ({ history }) => {
 
   const createAccount = async () => {
     if (AppState) {
+      // Agrega un nuevo usuario a nuestro arreglo de usuarios
+      // (FIFO)
       AppState.setUserList([
         ...AppState.userList,
         {
           name: username,
           password: password,
-          friends: []
+          friends: [],
+          requests: []
         }
       ]);
     }

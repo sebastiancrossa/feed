@@ -1,5 +1,6 @@
 // Libraries
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../App";
 import useInputState from "../hooks/useInputState";
 
 // Component imports
@@ -10,6 +11,8 @@ import { UserList } from "../containers/Feed/UserList";
 
 const Users = () => {
   const [buscar, updateBuscar, resetBuscar] = useInputState("");
+
+  const AppState = useContext(AppContext);
 
   return (
     <div>
@@ -25,7 +28,14 @@ const Users = () => {
             width={`${80}%`}
             placeholder="Buscar por nombre"
           />
-          <SearchButton>BUSCAR</SearchButton>
+          <SearchButton
+            onClick={() => {
+              AppState.setQuery(buscar);
+              resetBuscar();
+            }}
+          >
+            BUSCAR
+          </SearchButton>
         </InputCard>
       </div>
       <UserList />
